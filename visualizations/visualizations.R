@@ -171,7 +171,7 @@ earnings_fig <- plot_ly(data = earnings_long,
                         mode = "lines+markers") |>
   layout(
     title = "Median Earnings by Race & Ethnicity, Austin city",
-    yaxis = list(tickprefix = "$", separatethousands = TRUE),
+    yaxis = list(tickprefix = "$"),
     xaxis = list(title = "", tickangle = -30),
     legend = list(
       orientation = "h",
