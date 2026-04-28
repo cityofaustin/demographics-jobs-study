@@ -51,7 +51,9 @@ age_fig <- plot_ly(data=age,
            x = 0.5,
            xanchor = "center",
            y = 1.02,
-           traceorder='normal'))
+           traceorder='normal'),
+         margin = list(l=100, r = 100, t = 100, b = 100)
+         )
 
 age_fig
 
@@ -61,6 +63,11 @@ edu_colors <- c("Less than high school graduate" = "#44499C",
                 "High school graduate (includes equivalency)" = "#009F4D",
                 "Some college or associate's degree" = "#FFC600",
                 "Bachelor's degree or higher" = "#FF8F00")
+
+edu$Edu <- factor(
+  edu$Edu,
+  levels = c("Less than high school graduate", "High school graduate (includes equivalency)",
+             "Some college or associate's degree", "Bachelor's degree or higher"))
 
 edu_fig <- plot_ly(data=edu,
                    x = ~Share,
@@ -91,8 +98,9 @@ edu_fig <- plot_ly(data=edu,
            orientation = "h",
            x = 0.5,
            xanchor = "center",
-           y = -.1,
-           traceorder='normal'))
+           y = 1.07,
+           traceorder='normal'),
+         margin = list(l=100, r = 100, t = 100, b = 100))
 
 edu_fig
 
@@ -129,20 +137,25 @@ race_fig <- plot_ly(data=race,
                   showlegend = FALSE,
                   hovertemplate = paste(
                     "</b> %{fullData.name}<br>",
-                    "<b>Share:</b> %{y}<br>"
+                    "<b>Share:</b> %{y}<br>",
+                    "<extra></extra>"
                   )) |>
   layout(barmode = "group",
          bargap = .15,
+         autosize=TRUE,
+         width=1000,
+         height=600,
          title = "Labor Force Composition by Race & Ethnicity",
          yaxis = list(title="Share (%)", tickformat = ".0%"),
-         xaxis = list(title = "Race & Ethnicity", tickangle = 0, type = "category"),
+         xaxis = list(title = "Race & Ethnicity", type = "category"),
          annotations = list(
            list(
              text = "Ligher shade: 2014, Darker shade: 2024",
              x = 0.45, y = 1,
              xref = "paper", yref = "paper",
              showarrow=FALSE)
-         ))
+         ),
+         margin = list(l=150, r = 100, t = 100, b = 100))
 race_fig
 
 
@@ -177,7 +190,8 @@ earnings_fig <- plot_ly(data = earnings_long,
       orientation = "h",
       x = 0.5, 
       xanchor = "center",
-      y = -0.2)
+      y = 1.07),
+    margin = list(l=100, r = 100, t = 100, b = 100)
   )
 
 earnings_fig
@@ -218,7 +232,8 @@ sector_fig <- plot_ly(data = sector_long,
       orientation = "h",
       x = 0.5, 
       xanchor = "center",
-      y = -0.15)
+      y = 1.07),
+    margin = list(l=100, r = 100, t = 100, b = 100)
   )
 sector_fig
 
@@ -255,8 +270,9 @@ industry_fig <- plot_ly(data=industry,
            x = 0.5,
            xanchor = "center",
            y = 1.02,
-           traceorder='normal'
-         ))
+           traceorder='normal'),
+         margin = list(l=100, r = 100, t = 100, b = 100)
+         )
 industry_fig
 
 
@@ -304,7 +320,7 @@ transpo_fig
 
 htmlwidgets::saveWidget(age_fig, "visualizations/labor-force-age/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(edu_fig, "visualizations/labor-force-edu/index.html", selfcontained = FALSE)
-htmlwidgets::saveWidget(race_fig, "visualizations/labor-force-race/index.html", selfcontained = FALSE)
+htmlwidgets::saveWidget(race_fig, "visualizations/labor-force-race-ethnicity/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(earnings_fig, "visualizations/earnings-by-race/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(sector_fig, "visualizations/jobs-by-sector/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(industry_fig, "visualizations/industry-share/index.html", selfcontained = FALSE)
