@@ -15,3 +15,5 @@ date: "2026-04-27"
 [Jos by Sector](https://cityofaustin.github.io/demographics-jobs-study/visualizations/jobs-by-sector/){.uri}
 
 [Earnings by Race & Ethnicity](https://cityofaustin.github.io/demographics-jobs-study/visualizations/earnings-by-race/){.uri}
+
+[Transportation](https://cityofaustin.github.io/demographics-jobs-study/visualizations/transportation/){.uri}
