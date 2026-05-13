@@ -289,31 +289,48 @@ transpo_long <- transpo |>
     names_to = "Year",
     values_to = "Share")
 
-transpo_colors <- c(
-  "Private" = "#22254E",
-  "Local Government" = "#90CF8E",
-  "State Government" = "#008743",
-  "Federal Government" = "#005027"
-)
+transpo_long_24 <- transpo_long |>
+  filter(Year == 2024)
 
-transpo_fig <- plot_ly(data = transpo_long,
-                      x = ~Year,
-                      y = ~Share,
-                      color = ~Transportation,
-                      #colors = sector_colors,
-                      type = "scatter",
-                      mode = "lines",
-                      stackgroup = "one")|>
-  layout(
-    title = "Means of Transportation, Austin MSA",
-    yaxis = list(title = "", tickformat = ".0%"),
-    xaxis = list(title = ""),
-    legend = list(
-      orientation = "h",
-      x = 0.5, 
-      xanchor = "center",
-      y = -0.15)
-  )
+transpo_colors <- c(
+  "Car, truck, or van" = "#44499C",
+  "Public transportation" = "#009F4D",
+  "Walked" = "#FFC600",
+  "Taxi or ride-hailing services, motorcycle, bicycle, or other means" = "#FF8F00"
+)
+  
+transpo_fig <- plot_ly(data=transpo_long_24,
+                   x = ~Share,
+                   y = ~Geography,
+                   color = ~Transportation,
+                   colors = transpo_colors,
+                   type="bar",
+                   text = ~percent(Share, accuracy = 0.1),
+                   textposition = "inside",
+                   insidetextanchor = "middle",
+                   orientation = "h",
+                   hovertemplate = paste(
+                     "<b>Geography:</b> %{y}<br>",
+                     "<b>Transportation:</b> %{fullData.name}<br>",
+                     "<b>Share:</b> %{x:.1%}<extra></extra>"
+                   )) |>
+  layout(barmode="stack",
+         title = list (text = "Means of Transportation 2024"),
+         xaxis = list(
+           title = "",
+           tickformat = ".0%",
+           zeroline = FALSE),
+         yaxis = list(
+           title = "",
+           categoryorder = "array",
+           categoryarray = c("2024", "2014")),
+         legend = list(
+           orientation = "h",
+           x = 0.5,
+           xanchor = "center",
+           y = 1.07,
+           traceorder='normal'),
+         margin = list(l=100, r = 100, t = 100, b = 100))
 transpo_fig
 
 
@@ -324,3 +341,4 @@ htmlwidgets::saveWidget(race_fig, "visualizations/labor-force-race-ethnicity/ind
 htmlwidgets::saveWidget(earnings_fig, "visualizations/earnings-by-race/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(sector_fig, "visualizations/jobs-by-sector/index.html", selfcontained = FALSE)
 htmlwidgets::saveWidget(industry_fig, "visualizations/industry-share/index.html", selfcontained = FALSE)
+htmlwidgets::saveWidget(transpo_fig, "visualizations/transportation/index.html", selfcontained = FALSE)
