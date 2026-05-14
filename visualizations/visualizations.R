@@ -108,15 +108,8 @@ edu_fig
 
 # Race
 race$Group <- paste(race$Race, race $Year)
-race_colors <- c(
-  "Asian alone 2014" = "#AAB0E6",
-  "Asian alone 2024" = "#44499C",
-  "Black or African American alone 2014" = "#99D1B3",
-  "Black or African American alone 2024" = "#008743",
-  "White alone, not Hispanic or Latino 2014" = "#FFD199",
-  "White alone, not Hispanic or Latino 2024" = "#FF8F00",
-  "Hispanic or Latino origin (of any race) 2014" = "#FFFA06",
-  "Hispanic or Latino origin (of any race) 2024" = "#FFC600")
+race_2014 <- subset(race, Year == 2014)
+race_2024 <- subset(race, Year == 2024)
 
 race$Label <- c('Asian alone',
                 'Black or African<br>American alone',
@@ -127,35 +120,47 @@ race$Label <- c('Asian alone',
                 'White alone,<br>not Hispanic or Latino',
                 'Hispanic or Latino<br>origin (of any race)')
 
-race_fig <- plot_ly(data=race,
-                  x = ~Label,
-                  y = ~Share,
-                  color = ~Group,
-                  colors = race_colors,
-                  type="bar",
-                  width = 5,
-                  showlegend = FALSE,
-                  hovertemplate = paste(
-                    "</b> %{fullData.name}<br>",
-                    "<b>Share:</b> %{y}<br>",
-                    "<extra></extra>"
-                  )) |>
-  layout(barmode = "group",
-         bargap = .15,
-         autosize=TRUE,
-         width=1000,
-         height=600,
-         title = "Labor Force Composition by Race & Ethnicity",
-         yaxis = list(title="Share (%)", tickformat = ".0%"),
-         xaxis = list(title = "Race & Ethnicity", type = "category"),
-         annotations = list(
-           list(
-             text = "Ligher shade: 2014, Darker shade: 2024",
-             x = 0.45, y = 1,
-             xref = "paper", yref = "paper",
-             showarrow=FALSE)
-         ),
-         margin = list(l=150, r = 100, t = 100, b = 100))
+race_fig <- plot_ly() |> add_trace(
+  data = race_2014,
+  x = ~Label,
+  y = ~Share,
+  type = "bar",
+  marker = list(color = c("#AAB0E6", "#99D1B3", "#FFD199", "#FFFA06")),
+  name = 2014,
+  hovertemplate = paste(
+    "<b>%{x}</b> </b> %{fullData.name}<br>",
+    "<b>Share:</b> %{y}<br>",
+    "<extra></extra>"
+  )
+) |>
+  add_trace(data = race_2024,
+            x = ~Label,
+            y = ~Share,
+            type = "bar",
+            marker = list(color = c("#44499C", "#008743", "#FF8F00", "#FFC600")),
+            name = 2024,
+            hovertemplate = paste(
+              "<b>%{x}</b> </b> %{fullData.name}<br>",
+              "<b>Share:</b> %{y}<br>",
+              "<extra></extra>"
+            )
+  ) |>
+  layout(
+    title = "Labor Force Composition by Race & Ethnicity",
+    xaxis = list(title = "Race & Ethnicity", type = "category"),
+    yaxis = list(title="Share (%)", tickformat = ".0%"),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = 1.07,
+      traceorder='normal'),
+    barmode = "group",
+    gap = 0.2,
+    bargroupgap = 0.05,
+    margin = list(l=150, r = 100, t = 100, b = 100)
+  )
+
 race_fig
 
 
