@@ -7,6 +7,10 @@ library(scales)
 library(dplyr)
 library(tidyr)
 
+library(htmltools)
+library(bslib)
+library(shiny)
+library(xfun)
 
 
 edu_city <- read_xlsx("lf_comp_plotly.xlsx", sheet = "edu")
@@ -100,102 +104,24 @@ age_msa_fig <- plot_ly(data=age_msa,
 age_msa_fig
 
 
-# Tabbed HTML widget for AGE
-age_tabs <- tagList(
-  tags$style(HTML("
-  .tab-button {
-  border: none;
-  padding: 10px 16px;
-  cursor: pointer;
-  background-color: #eee;
-  font-size: 15px;
-  }
-  
-  .tab-button.active {
-  background-color: #ccc;
-  font-weight: bold;
-  }
-  
-  .tab-content {
-  display: none;
-  padding-top: 15px;
-  }
-  
-  .tab-content.active {
-  display: block;
-  }
-                  ")),
-  tags$div(
-    tags$button(
-      "Austin city",
-      class = "tab-button active",
-      onclick = "openTab(event, 'city')"
-    ),
-    
-    tags$button(
-      "Austin MSA",
-      class = "tab-button",
-      onclick = "openTab(event, 'msa')"
-    )
-  ),
-  
-  tags$div(
-    id = "city",
-    class = "tab-content active",
-    age_city_fig
-  ),
-  
-  tags$div(
-    id = "msa",
-    class = "tab-content",
-    age_msa_fig
-  ),
-  
-  tags$script(HTML("
-    function openTab(evt, tabName) {
-      var i, tabcontent, tabbuttons;
-  
-    tabcontent = document.getElementsByClassName('tab-content');
-    for (i = 0; i < tabcontent.length; i++) { 
-      tabcontent[i].classList.remove('active');
-  }
-  
-    tabbuttons = document.getElementsByClassName('tab-button');
-    for (i = 0; i < tabbuttons.length; i++) { 
-      tabbuttons[i].classList.remove('active');
-  }
-  
-    document.getElementById(tabName).classList.add('active');
-    evt.currentTarget.classList.add('active');
-  }
-                   "))
-)
+age_city_fig <- age_city_fig |> layout(height=550)
+age_msa_fig <- age_msa_fig |> layout(height=550)
 
-browsable(age_tabs)
-
-save_html(
-  browsable(age_tabs),
-  "age_lf_tabs.html",
-  selfcontained=TRUE
-)
-
-library(bslib)
-tab_widget <- paeg_fluid(
+age_widget <- page_fluid(
+  style="padding:0;",
   theme=bs_theme(version = 5),
   navset_tab(
-    nav_panel("age city", age_city_fig),
-    nav_panel("age_msa", age_msa_fig)
-    )
+    nav_panel("Austin city", age_city_fig),
+    nav_panel("Austin MSA", age_msa_fig)
   )
-
-tab_widget
-
-htmlwidgets::saveWidget(
-  widget,
-  "labor_market_widget.html",
-  selfcontained = TRUE
 )
+age_widget
 
+
+htmltools::save_html(
+  age_widget,
+  file = "C:/Users/courtneys/Documents/jobs_study_plotly_files/labor-force-age.html",
+  libdir = "C:/Users/courtneys/Documents/jobs_study_plotly_files/lf_age_files")
 
 
 
