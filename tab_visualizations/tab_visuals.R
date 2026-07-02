@@ -120,8 +120,8 @@ age_widget
 
 htmltools::save_html(
   age_widget,
-  file = "C:/Users/courtneys/Documents/jobs_study_plotly_files/labor-force-age.html",
-  libdir = "C:/Users/courtneys/Documents/jobs_study_plotly_files/lf_age_files")
+  file = "labor-force-age.html",
+  libdir = "lf_age_files")
 
 
 
