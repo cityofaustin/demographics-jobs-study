@@ -167,9 +167,9 @@ race_fig
 # Earnings by Race & Ethnicity
 earnings <- read_xlsx("lf_comp_plotly.xlsx", sheet = "earnings")
 
-earnings_colors <- c("Asian Alone" = "#FFC600",
+earnings_colors <- c("Asian Alone" = "#005027",
                      "Black or African American Alone" = "#009CDE",
-                     "Hispanic or Latino" = "#008743",
+                     "Hispanic or Latino" = "#009f4d",
                      "White Alone, Not Hispanic or Latino" = "#44499C",
                      "Total" = "#C6C5C4")
   
