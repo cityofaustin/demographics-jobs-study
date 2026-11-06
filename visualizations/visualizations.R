@@ -7,10 +7,10 @@ library(scales)
 library(dplyr)
 library(tidyr)
 
-age <- read_xlsx("lf_comp_plotly.xlsx", sheet = "age")
-edu <- read_xlsx("lf_comp_plotly.xlsx", sheet = "edu")
+age <- read_xlsx("lf_comp_plotly.xlsx", sheet = "age_city")
+edu <- read_xlsx("lf_comp_plotly.xlsx", sheet = "edu_city")
 # Remember race should not be shown as stacked bar chart
-race <- read_xlsx("lf_comp_plotly.xlsx", sheet = "race")
+race <- read_xlsx("lf_comp_plotly.xlsx", sheet = "race_city")
 
 # Age 
 age$Year <- as.factor(age$Year)
@@ -167,9 +167,9 @@ race_fig
 # Earnings by Race & Ethnicity
 earnings <- read_xlsx("lf_comp_plotly.xlsx", sheet = "earnings")
 
-earnings_colors <- c("Asian Alone" = "#FFC600",
+earnings_colors <- c("Asian Alone" = "#005027",
                      "Black or African American Alone" = "#009CDE",
-                     "Hispanic or Latino" = "#008743",
+                     "Hispanic or Latino" = "#009f4d",
                      "White Alone, Not Hispanic or Latino" = "#44499C",
                      "Total" = "#C6C5C4")
   
@@ -282,7 +282,7 @@ industry_fig
 
 
 # Industry Growth chart
-ind_growth
+#ind_growth
 
 
 # Means of Transportation (line graph, Austin MSA - home)
