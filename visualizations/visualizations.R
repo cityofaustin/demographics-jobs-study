@@ -7,10 +7,10 @@ library(scales)
 library(dplyr)
 library(tidyr)
 
-age <- read_xlsx("lf_comp_plotly.xlsx", sheet = "age")
-edu <- read_xlsx("lf_comp_plotly.xlsx", sheet = "edu")
+age <- read_xlsx("lf_comp_plotly.xlsx", sheet = "age_city")
+edu <- read_xlsx("lf_comp_plotly.xlsx", sheet = "edu_city")
 # Remember race should not be shown as stacked bar chart
-race <- read_xlsx("lf_comp_plotly.xlsx", sheet = "race")
+race <- read_xlsx("lf_comp_plotly.xlsx", sheet = "race_city")
 
 # Age 
 age$Year <- as.factor(age$Year)
@@ -282,7 +282,7 @@ industry_fig
 
 
 # Industry Growth chart
-ind_growth
+#ind_growth
 
 
 # Means of Transportation (line graph, Austin MSA - home)
